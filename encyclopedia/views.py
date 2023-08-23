@@ -43,3 +43,30 @@ def search(request):
             })
     else:
         return render(request, "encyclopedia/results.html")
+    
+
+
+def create(request):
+    return render(request, "encyclopedia/create.html")
+
+
+def add(request):
+    if request.method == "POST":
+        title = request.POST["title"]
+        content =  request.POST["content"]
+
+        #if article already exists:
+        for article in util.list_entries():
+            if title.lower() == article.lower():
+                return render(request, "encyclopedia/page_exist.html", {
+
+                    "page": article
+
+                })
+            
+        #create new article:
+        util.save_entry(title, content)
+        return redirect("entry", title=title)
+        
+
+        

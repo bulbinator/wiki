@@ -6,4 +6,11 @@
 
 {% block body %}
     <p>{{ entry }}</p>
+    <br>
+    <br>
+
+    <a href="{% url 'edit' %}" style="height:150; width:200px; margin-left: 50%"></a>
+        <button>Edit Page</button>
+    </a>      
+    
 {% endblock %}
