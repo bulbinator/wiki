@@ -29,9 +29,17 @@ def search(request):
         if entry.lower() == query.lower():
             return redirect("entry", title=query)
     
-    else:
-        for entry in util.list_entries():
-            if query.lower() in entry.lower():
+    pages = []
+    for entry in util.list_entries():
+        if query.lower() in entry.lower():
 
-                ### TODO: CREATE RESULTS PAGE
-                return redirect("entry", title=entry)
+            pages.append(entry)
+
+            ### TODO: CREATE RESULTS PAGE
+            return render(request, "encyclopedia/results.html", {
+
+                "pages": pages
+
+            })
+    else:
+        return render(request, "encyclopedia/results.html")
