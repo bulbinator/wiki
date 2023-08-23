@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from random import choice
+
 
 from . import util
 
@@ -87,3 +89,7 @@ def edit(request, title):
 
     })
         
+def random(request):
+
+    entry = choice(util.list_entries())
+    return redirect("entry", title=entry)
