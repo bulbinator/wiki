@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from random import choice
+import markdown2
 
 
 from . import util
@@ -18,8 +19,11 @@ def entry(request, title):
         return render(request, "encyclopedia/error.html")
     
     else:
+        entry = util.get_entry(title)
+        print(entry)
+        entry = markdown2.markdown(entry)
         return render(request, "encyclopedia/entry.html", {
-            "entry": util.get_entry(title),
+            "entry": entry,
             "title": title
         })
     
@@ -56,7 +60,7 @@ def create(request):
 def add(request):
     if request.method == "POST":
         title = request.POST["title"]
-        content =  request.POST["content"]
+        content =  request.POST["content"].strip()
 
         #if article already exists:
         for article in util.list_entries():
@@ -76,7 +80,7 @@ def edit(request, title):
     title = title
 
     if request.method == "POST":
-        content =  request.POST["content"]
+        content =  request.POST["content"].strip()
         util.save_entry(title, content)
         return redirect("entry", title=title)
 
