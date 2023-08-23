@@ -1,1 +1,3 @@
-# why doesnt this owrk
+#Work 
+
+an activity involving mental or physical effort done in order to achieve a purpose or result.

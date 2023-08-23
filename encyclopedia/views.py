@@ -20,7 +20,6 @@ def entry(request, title):
     
     else:
         entry = util.get_entry(title)
-        print(entry)
         entry = markdown2.markdown(entry)
         return render(request, "encyclopedia/entry.html", {
             "entry": entry,
