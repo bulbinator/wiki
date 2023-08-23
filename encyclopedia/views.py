@@ -17,7 +17,8 @@ def entry(request, title):
     
     else:
         return render(request, "encyclopedia/entry.html", {
-            "entry": util.get_entry(title)
+            "entry": util.get_entry(title),
+            "title": title
         })
     
 
@@ -68,5 +69,21 @@ def add(request):
         util.save_entry(title, content)
         return redirect("entry", title=title)
         
+def edit(request, title):
 
+    title = title
+
+    if request.method == "POST":
+        content =  request.POST["content"]
+        util.save_entry(title, content)
+        return redirect("entry", title=title)
+
+    
+    entry = util.get_entry(title)
+    return render(request, "encyclopedia/edit.html", {
+        
+        "entry": entry,
+        "title": title
+
+    })
         
